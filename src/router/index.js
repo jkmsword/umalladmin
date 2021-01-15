@@ -8,10 +8,15 @@ export default new Router({
         { 
             path:'/',
             component:()=>import('../components/Layout'),
+            // 设置路由元信息
+            meta:{ selected:'/' },
             children:[
-                { path:'student',component:()=>import('../components/Student') },
-                { path:'student/add',component:()=>import('../components/StudentInfo') },
-                { path:'course',component:()=>import('../components/Course') },
+                { path:'menu',component:()=>import('../components/menu/index'),meta:{selected:'/menu'} },
+                { path:'menu/add',component:()=>import('../components/menu/info'),meta:{selected:'/menu'} },
+                { path:'menu/:id',component:()=>import('../components/menu/info'),meta:{selected:'/menu'} },
+                { path:'role',component:()=>import('../components/role/index'),meta:{selected:'/role'} },
+                { path:'role/add',component:()=>import('../components/role/info'),meta:{selected:'/role'} },
+                { path:'role/:id',component:()=>import('../components/role/info'),meta:{selected:'/role'} },
             ]
         }
     ]

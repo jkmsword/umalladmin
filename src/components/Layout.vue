@@ -11,20 +11,23 @@
                         router 启用路由模式
                  -->
 				<el-menu
-					default-active=""
+					:default-active="defaultActive"
 					class="el-menu-vertical-demo"
 					background-color="#545c64"
 					text-color="#fff"
 					active-text-color="#ffd04b"
                     router
+                    unique-opened
 				>
-					<el-submenu index="1">
+                    <el-menu-item index="/">
+                        <i class="el-icon-s-home"></i>首页
+                    </el-menu-item>
+					<el-submenu v-for="item of menus" :key="item.id" :index="item.title">
 						<template slot="title">
-							<i class="el-icon-s-tools"></i>
-							<span>系统设置</span>
+							<i :class="item.icon"></i>
+							<span>{{ item.title }}</span>
 						</template>
-						<el-menu-item index="/student">学生管理</el-menu-item>
-						<el-menu-item index="/course">课程管理</el-menu-item>
+						<el-menu-item v-for="subitem of item.children" :key="subitem.id" :index="subitem.url">{{ subitem.title }}</el-menu-item>
 					</el-submenu>
 				</el-menu>
 			</el-aside>
@@ -36,8 +39,27 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-
+    data(){
+        return{
+            menus:[],
+            defaultActive:''
+        }
+    },
+    mounted(){
+        //页面刷新时，读取路由元信息，控制左侧哪个菜单选中
+        this.defaultActive = this.$route.meta.selected;
+        axios.get('/api/menulist',{ params:{istree:true} }).then(result=>{
+            this.menus = result.data.list
+        })
+    },
+    watch:{
+        //当路由地址变化时，读取路由元信息，控制左侧哪个菜单选中
+        $route(newVal){
+            this.defaultActive = newVal.meta.selected;
+        }
+    }
 }
 </script>
 

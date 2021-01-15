@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    // 代理映射配置表
+    proxyTable: {
+        // http://localhost:8080/api/menuadd
+        // http://localhost:3000/api/menuadd
+        '/api':{
+            target:'http://localhost:3000',//目标地址
+            changeOrigin:true//允许跨域
+        }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
