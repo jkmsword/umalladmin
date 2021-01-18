@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
     data(){
         return{
@@ -33,7 +32,7 @@ export default {
         }
     },
     mounted(){
-        axios.get('/api/rolelist').then(res=>{
+        this.axios.get('/api/rolelist').then(res=>{
             this.arr = res.data.list;
         })
     },
@@ -45,18 +44,13 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                axios.post('/api/roledelete',{id:obj.row.id}).then(res=>{
+                this.axios.post('/api/roledelete',{id:obj.row.id}).then(res=>{
                     if(res.data.code === 200){
                         this.arr = res.data.list
                         this.$message({
                             type: 'success',
                             message: '删除成功!'
                         });
-                    }else{
-                        this.$message({
-                            type: 'info',
-                            message: res.data.msg
-                        });  
                     }
                 })
             }).catch(()=>{})

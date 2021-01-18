@@ -1,6 +1,12 @@
 <template>
 	<el-container class="page">
-		<el-header>header</el-header>
+		<el-header>
+            <span class="fl">小U商城后台管理系统</span>
+            <span class="fr">
+                欢迎：{{ $store.state.userinfo ? $store.state.userinfo.username:'' }}
+                <a href="javascript:void(0);" @click="logout">退出</a>
+            </span>
+        </el-header>
 		<el-container>
 			<el-aside style="width:150px;">
                 <!-- 
@@ -22,7 +28,8 @@
                     <el-menu-item index="/">
                         <i class="el-icon-s-home"></i>首页
                     </el-menu-item>
-					<el-submenu v-for="item of menus" :key="item.id" :index="item.title">
+                    <!-- 调用仓库中的用户信息，用来实现不同的角色展示不同的菜单 -->
+					<el-submenu v-for="item of $store.state.userinfo.menus" :key="item.id" :index="item.title">
 						<template slot="title">
 							<i :class="item.icon"></i>
 							<span>{{ item.title }}</span>
@@ -39,7 +46,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
     data(){
         return{
@@ -50,14 +56,17 @@ export default {
     mounted(){
         //页面刷新时，读取路由元信息，控制左侧哪个菜单选中
         this.defaultActive = this.$route.meta.selected;
-        axios.get('/api/menulist',{ params:{istree:true} }).then(result=>{
-            this.menus = result.data.list
-        })
     },
     watch:{
         //当路由地址变化时，读取路由元信息，控制左侧哪个菜单选中
         $route(newVal){
             this.defaultActive = newVal.meta.selected;
+        }
+    },
+    methods:{
+        logout(){
+            this.$store.commit('setUserInfo',null)
+            this.$router.replace('/login')
         }
     }
 }
@@ -76,5 +85,12 @@ export default {
 }
 .el-submenu .el-menu-item{
     min-width: 150px;
+}
+.el-header{
+    line-height: 60px;
+}
+.fr{
+    position: absolute;
+    right:10px;
 }
 </style>

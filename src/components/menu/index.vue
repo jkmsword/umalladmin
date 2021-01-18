@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
     data(){
         return{
@@ -45,7 +44,7 @@ export default {
         }
     },
     mounted(){
-        axios.get('/api/menulist',{params:{istree:true}}).then(res=>{
+        this.axios.get('/api/menulist',{params:{istree:true}}).then(res=>{
             this.arr = res.data.list;
         })
     },
@@ -61,7 +60,7 @@ export default {
                 type: 'warning'
             }).then(() => {
                 // post提交的数据一般是对象类型或者表单类型，{键名:键值}
-                axios.post('/api/menudelete',{id:obj.row.id}).then(res=>{
+                this.axios.post('/api/menudelete',{id:obj.row.id}).then(res=>{
                     if(res.data.code === 200){
                         //删除成功后，接口会返回最新的数据，直接把最新数据赋值给表格使用的数据就可以实现页面的变化
                         this.arr = res.data.list
@@ -69,11 +68,6 @@ export default {
                             type: 'success',
                             message: '删除成功!'
                         });
-                    }else{
-                        this.$message({
-                            type: 'info',
-                            message: res.data.msg
-                        });  
                     }
                 })
             }).catch(()=>{})
