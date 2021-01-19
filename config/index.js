@@ -17,6 +17,9 @@ module.exports = {
         '/api':{
             target:'http://localhost:3000',//目标地址
             changeOrigin:true//允许跨域
+        },
+        '/uploads':{
+            target:'http://localhost:3000'
         }
     },
 

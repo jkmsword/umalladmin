@@ -68,5 +68,5 @@ export default {
 }
 .el-form-item{ margin-left:50px;margin-right:50px;}
 .el-button{ width:100%;}
-h2{ margin:20px 0;}
+h2{ padding:20px 0;}
 </style>

@@ -35,7 +35,15 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="菜单图标" v-show="info.type==1">
-                <el-input placeholder="请输入菜单图标" v-model="info.icon"></el-input>
+                <el-input placeholder="请输入菜单图标" v-model="info.icon" @focus="iconvisible=true"></el-input>
+                
+                <el-dialog :visible.sync="iconvisible">
+                    <ul class="iconlist">
+                        <li v-for="(item,index) of iconarr" :key="index" @click="geticon(item)">
+                            <i :class="item"></i>
+                        </li>
+                    </ul>
+                </el-dialog>
             </el-form-item>
             <el-form-item label="菜单地址"  v-show="info.type==2">
                 <el-input placeholder="请输入菜单地址" v-model="info.url"></el-input>
@@ -51,6 +59,7 @@
 </template>
 
 <script>
+import icons from '../../assets/js/icons'
 export default {
     data(){
         // 定义菜单的初始数据
@@ -74,7 +83,9 @@ export default {
                     { min:3,max:20,message:'菜单名称应该在3-20个字符之间' }
                 ]
             },
-            menuarr:[]
+            menuarr:[],
+            iconarr:icons.arr,
+            iconvisible:false
         }
     },
     // 菜单信息页面组件挂载完成后，请求接口，获取上级菜单选项数据
@@ -93,6 +104,10 @@ export default {
         })
     },
     methods:{
+        geticon(icon){
+            this.info.icon = icon
+            this.iconvisible = false;
+        },
         submit(){
             this.$refs['menuform'].validate((val)=>{
                 if(val){
@@ -119,6 +134,16 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.iconlist{
+    height:420px;
+}
+.iconlist li{
+    width:30px;
+    height:30px;
+    line-height: 30px;
+    float:left;
+    list-style: none;
+    text-align: center;
+}
 </style>

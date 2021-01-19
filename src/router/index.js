@@ -20,6 +20,12 @@ const router = new Router({
                 { path:'user',component:()=>import('../components/user/index'),meta:{selected:'/user'} },
                 { path:'user/add',component:()=>import('../components/user/info'),meta:{selected:'/user'} },
                 { path:'user/:id',component:()=>import('../components/user/info'),meta:{selected:'/user'} },
+                { path:'cate',component:()=>import('../components/cate/index'),meta:{selected:'/cate'} },
+                { path:'cate/add',component:()=>import('../components/cate/info'),meta:{selected:'/cate'} },
+                { path:'cate/:id',component:()=>import('../components/cate/info'),meta:{selected:'/cate'} },
+                { path:'specs',component:()=>import('../components/specs/index'),meta:{selected:'/specs'} },
+                { path:'specs/add',component:()=>import('../components/specs/info'),meta:{selected:'/specs'} },
+                { path:'specs/:id',component:()=>import('../components/specs/info'),meta:{selected:'/specs'} },
             ]
         },
         { path:'/login',component:()=>import('../components/Login') }
