@@ -4,7 +4,7 @@
             <span class="fl">
                 小U商城后台管理系统
                 <el-button type="primary" size="mini" @click="iscollapse=!iscollapse">
-                    <i class="el-icon-s-unfold"></i>
+                    <i :class="{'el-icon-s-fold':!iscollapse,'el-icon-s-unfold':iscollapse}"></i>
                 </el-button>
             </span>
             <span class="fr">

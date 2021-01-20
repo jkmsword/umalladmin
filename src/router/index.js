@@ -26,6 +26,9 @@ const router = new Router({
                 { path:'specs',component:()=>import('../components/specs/index'),meta:{selected:'/specs'} },
                 { path:'specs/add',component:()=>import('../components/specs/info'),meta:{selected:'/specs'} },
                 { path:'specs/:id',component:()=>import('../components/specs/info'),meta:{selected:'/specs'} },
+                { path:'goods',component:()=>import('../components/goods/index'),meta:{selected:'/goods'} },
+                { path:'goods/add',component:()=>import('../components/goods/info'),meta:{selected:'/goods'} },
+                { path:'goods/:id',component:()=>import('../components/goods/info'),meta:{selected:'/goods'} }
             ]
         },
         { path:'/login',component:()=>import('../components/Login') }
